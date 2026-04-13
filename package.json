@@ -1,0 +1,12 @@
+{
+  "name": "APEX",
+  "version": "1.0.0",
+  "description": "APEX🜲 CRYSN⎔VA AI Gateway",
+  "main": "worker.js",
+  "scripts": {
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.81.1"
+  }
+}
