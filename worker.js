@@ -129,7 +129,7 @@ export default {
     // ==================== FRONTEND LANDING PAGE (PUBLIC) ====================
     if (path === '/' && method === 'GET') {
         const endpointsByCategory = [
-            { category: '🤖 AI Chat', endpoints: [
+            { category: '🤖 AI Chat PRO 🜲', endpoints: [
                 { method: 'POST', path: '/chat', desc: 'GPT-4.5 Chat Completion' },
                 { method: 'POST', path: '/deepseek', desc: 'DeepSeek AI Chat' },
                 { method: 'GET', path: '/ai/aiwriter-models', desc: 'AI Writer Models' },
@@ -139,7 +139,7 @@ export default {
                 { method: 'GET', path: '/ai/ai4chat', desc: 'AI4Chat' },
                 { method: 'GET', path: '/ai/detectbugs', desc: 'Detect Code Bugs' }
             ] },
-            { category: '🎨 Image Generation', endpoints: [
+            { category: '🎨 Image Generation ✐', endpoints: [
                 { method: 'POST', path: '/generate-image', desc: 'AI Image Generation' },
                 { method: 'POST', path: '/changebg', desc: 'AI Background Changer' },
                 { method: 'POST', path: '/rembg', desc: 'Remove Image Background' },
@@ -154,7 +154,7 @@ export default {
                 { method: 'GET', path: '/imagecreator/meme', desc: 'Classic Meme' },
                 { method: 'GET', path: '/imagecreator/memeText', desc: 'Text on Image' }
             ] },
-            { category: '🔍 Search & Info', endpoints: [
+            { category: '🔍 Search & Info ⌘', endpoints: [
                 { method: 'GET', path: '/search/lyrics', desc: 'Song Lyrics' },
                 { method: 'GET', path: '/search/wallpaper', desc: 'Wallpapers' },
                 { method: 'GET', path: '/search/android1', desc: 'Android Search' },
@@ -168,7 +168,7 @@ export default {
                 { method: 'GET', path: '/moviesearch', desc: 'Movie Search' },
                 { method: 'GET', path: '/moviedetail', desc: 'Movie Details' }
             ] },
-            { category: '📥 Downloader', endpoints: [
+            { category: '📥 Downloader ⎙', endpoints: [
                 { method: 'GET', path: '/download/aio', desc: 'All-in-One Downloader' },
                 { method: 'GET', path: '/download/capcut', desc: 'CapCut Template' },
                 { method: 'GET', path: '/download/twitter', desc: 'Twitter Video' },
@@ -178,7 +178,7 @@ export default {
                 { method: 'GET', path: '/download/saveweb2zip', desc: 'Save Website as ZIP' },
                 { method: 'GET', path: '/download/ytinfo', desc: 'YouTube Info' }
             ] },
-            { category: '🛠️ Tools', endpoints: [
+            { category: '🛠️ Tools ⎔', endpoints: [
                 { method: 'POST', path: '/transcribe', desc: 'Voice Transcription' },
                 { method: 'POST', path: '/vision', desc: 'Image Description' },
                 { method: 'POST', path: '/ocr', desc: 'OCR Text Extraction' },
@@ -191,7 +191,7 @@ export default {
                 { method: 'GET', path: '/tools/tiktoktranscript', desc: 'TikTok Transcript' },
                 { method: 'GET', path: '/tools/tag', desc: 'Keyword Extractor' }
             ] },
-            { category: '📺 Anime & Manga', endpoints: [
+            { category: '🕸️ Anime & Manga ☞⁠ ͡⁠°⁠ ͜⁠ʖ⁠ ͡⁠°⁠)⁠☞', endpoints: [
                 { method: 'GET', path: '/anime/animesearch', desc: 'Anime Search' },
                 { method: 'GET', path: '/anime/animedetail', desc: 'Anime Details' },
                 { method: 'GET', path: '/anime/manga-search', desc: 'Manga Search' },
@@ -199,18 +199,18 @@ export default {
                 { method: 'GET', path: '/anime/reactions', desc: 'Anime Reactions' },
                 { method: 'GET', path: '/random/anime/programming', desc: 'Random Anime' }
             ] },
-            { category: '✨ Text Effects', endpoints: [
+            { category: '✨ Text Effects —͟͟͞͞𖣘', endpoints: [
                 { method: 'GET', path: '/pixelglitch', desc: 'Pixel Glitch' },
                 { method: 'GET', path: '/deletingtext', desc: 'Deleting Text' },
                 { method: 'GET', path: '/freecreate', desc: 'Free Create' },
                 { method: 'GET', path: '/gradienttext', desc: 'Gradient Text' }
             ] },
-            { category: '🖥️ Screenshot', endpoints: [
+            { category: '🖥️ Screenshot 𝌆', endpoints: [
                 { method: 'GET', path: '/ssweb/webss', desc: 'Website Screenshot' },
                 { method: 'GET', path: '/ssweb/apiFlash', desc: 'ApiFlash Screenshot' },
                 { method: 'GET', path: '/ssweb/screenshotLayer', desc: 'ScreenshotLayer' }
             ] },
-            { category: '🎮 Game', endpoints: [
+            { category: '🎮 Game ( ͡❛ ₃ ͡❛)', endpoints: [
                 { method: 'GET', path: '/game/quizcategories', desc: 'Quiz Categories' },
                 { method: 'GET', path: '/game/quizguess', desc: 'Quiz Game' }
             ] }
@@ -221,7 +221,7 @@ export default {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apex CRYSNOVA AI · Gateway</title>
+  <title>ஃ APEX CRYSN☉VA AI🜲 · Gateway</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:#0b0a0c;min-height:100vh;font-family:'Inter',system-ui,sans-serif;color:#e0d6b0;padding:2rem 1rem;position:relative;overflow-x:hidden}
@@ -263,8 +263,8 @@ export default {
   <canvas id="starfield"></canvas>
   <div class="container">
     <div class="header">
-      <h1>⚡ Apex CRYSNOVA AI</h1>
-      <div class="subtitle">Black · Gold · Red · Gateway</div>
+      <h1>ஃ𖠃 CRYSN⎔VA API🜲</h1>
+      <div class="subtitle">24/7 Active · Gateway</div>
       <div class="status-badge"><span class="pulse-dot"></span><span id="globalStatus">Checking system status...</span></div>
     </div>
     <div class="token-panel">
@@ -272,8 +272,8 @@ export default {
       <button id="applyTokenBtn">Apply Token</button>
     </div>
     <div class="token-actions">
-      <button id="getTempTokenBtn">✨ Get Temporary Token (GitHub)</button>
-      <a href="https://wa.me/message/636PEVHM5BZUM1" target="_blank" style="text-decoration:none"><button>💬 Purchase Permanent Token</button></a>
+      <button id="getTempTokenBtn">👾 Get Temporary Token (GitHub)</button>
+      <a href="https://wa.me/message/636PEVHM5BZUM1" target="_blank" style="text-decoration:none"><button>💫 Purchase Permanent Token</button></a>
     </div>
     <div id="categoriesContainer"></div>
     <div class="social-section">
@@ -282,7 +282,7 @@ export default {
       <a href="https://youtube.com/@crysnovax" target="_blank" class="social-btn">▶️ YouTube</a>
       <a href="https://tiktok.com/@crysnovax" target="_blank" class="social-btn">🎵 TikTok</a>
     </div>
-    <div class="footer">Apex CRYSNOVA AI · Secure Token Gateway · © 2026</div>
+    <div class="footer">ⓘ Apex CRYSN⚉VA AI · Secure Token Gateway · © 2026</div>
   </div>
   <script>
     const categories = ${JSON.stringify(endpointsByCategory)};
