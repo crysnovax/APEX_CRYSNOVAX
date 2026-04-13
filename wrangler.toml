@@ -1,7 +1,7 @@
-name = "APEX"
+name = "apex"
 main = "worker.js"
 compatibility_date = "2026-04-13"
 
 [[kv_namespaces]]
 binding = "TEMP_TOKEN_STORE"
-id = "your-temp-token-kv-id"
+id = "3be3ec20a2d3458b8affc4e10b150b4f"
