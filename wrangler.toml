@@ -1,0 +1,7 @@
+name = "APEX"
+main = "worker.js"
+compatibility_date = "2026-04-13"
+
+[[kv_namespaces]]
+binding = "TEMP_TOKEN_STORE"
+id = "your-temp-token-kv-id"
