@@ -1,7 +1,7 @@
 {
   "name": "apex",
   "version": "1.0.0",
-  "description": "APEX🜲 CRYSN⎔VA AI Gateway",
+  "description": "APEX🜲 CRYSN⎔VA AI API Gateway",
   "main": "worker.js",
   "scripts": {
     "deploy": "wrangler deploy"
