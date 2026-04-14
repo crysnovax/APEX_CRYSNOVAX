@@ -185,6 +185,7 @@ export default {
                 { method: 'GET', path: '/tools/geoip', desc: 'IP Geolocation' },
                 { method: 'GET', path: '/tools/myip', desc: 'My IP Address' },
                 { method: 'GET', path: '/tools/hostcheck', desc: 'DNS Lookup' },
+                { method: 'GET', path: '/tools/tojs', desc: 'Code to JavaScript Converter' },
                 { method: 'GET', path: '/tools/html2imgdirect', desc: 'HTML to Image' },
                 { method: 'GET', path: '/tools/fdroidpackage', desc: 'F-Droid Package' },
                 { method: 'GET', path: '/tools/tiktoktranscript', desc: 'TikTok Transcript' },
@@ -433,6 +434,21 @@ export default {
             });
             const text = await groqRes.text();
             return new Response(JSON.stringify({ text }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+        }
+        if (path === '/tools/tojavascript' && method === 'GET') {
+    const code = url.searchParams.get('code') || '';
+    const from = url.searchParams.get('from') || 'auto';
+    if (!code) {
+        return new Response(JSON.stringify({ error: 'Missing code' }), { status: 400, headers: corsHeaders });
+    }
+
+    const targetUrl = `https://apis.prexzyvilla.site/tools/tojavascript?code=${encodeURIComponent(code)}&from=${encodeURIComponent(from)}`;
+    const apiRes = await fetch(targetUrl);
+    const data = await apiRes.json();
+
+    return new Response(JSON.stringify(data), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    });
         }
 
         if (path === '/vision' && method === 'POST') {
