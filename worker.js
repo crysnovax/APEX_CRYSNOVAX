@@ -181,6 +181,7 @@ export default {
                 { method: 'POST', path: '/transcribe', desc: 'Voice Transcription' },
                 { method: 'POST', path: '/vision', desc: 'Image Description' },
                 { method: 'POST', path: '/ocr', desc: 'OCR Text Extraction' },
+                { method: 'GET', path: '/tools/tts', desc: 'Text-to-Speech (MP3)' },
                 { method: 'GET', path: '/tools/compilejs', desc: 'JavaScript Compiler' },
                 { method: 'GET', path: '/tools/geoip', desc: 'IP Geolocation' },
                 { method: 'GET', path: '/tools/myip', desc: 'My IP Address' },
@@ -450,6 +451,47 @@ export default {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
     });
         }
+        // Text-to-Speech (Google Translate TTS)
+if (path === '/tools/tts' && method === 'GET') {
+    const text = url.searchParams.get('text');
+    if (!text) {
+        return new Response(JSON.stringify({ error: 'Missing text parameter' }), {
+            status: 400,
+            headers: corsHeaders
+        });
+    }
+
+    // Limit text length per request (Google TTS works best under 200 chars)
+    const limitedText = text.slice(0, 200);
+    const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(limitedText)}&tl=en&client=tw-ob`;
+
+    try {
+        const apiRes = await fetch(ttsUrl, {
+            headers: { 'User-Agent': 'Mozilla/5.0' }
+        });
+
+        if (!apiRes.ok) {
+            return new Response(JSON.stringify({ error: 'TTS service unavailable' }), {
+                status: 502,
+                headers: corsHeaders
+            });
+        }
+
+        const audioBuffer = await apiRes.arrayBuffer();
+        return new Response(audioBuffer, {
+            headers: {
+                ...corsHeaders,
+                'Content-Type': 'audio/mpeg',
+                'Cache-Control': 'public, max-age=3600'
+            }
+        });
+    } catch (err) {
+        return new Response(JSON.stringify({ error: err.message }), {
+            status: 500,
+            headers: corsHeaders
+        });
+    }
+}
 
         if (path === '/vision' && method === 'POST') {
             const formData = await request.formData();
