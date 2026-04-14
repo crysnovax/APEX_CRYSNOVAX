@@ -395,117 +395,6 @@ export default {
 </html>`;
         return new Response(html, { headers: { 'Content-Type': 'text/html;charset=UTF-8' } });
     }
-
-// ==================== API ROUTES ====================
-try {
-  // ----- EXISTING AI SERVICES -----
-  if (path === '/transcribe' && method === 'POST') {
-    const formData = await request.formData();
-    const file = formData.get('file');
-    if (!file) return new Response(JSON.stringify({ error: 'Missing file' }), { status: 400, headers: corsHeaders });
-
-    const groqForm = new FormData();
-    groqForm.append('file', file, 'audio.ogg');
-    groqForm.append('model', 'whisper-large-v3-turbo');
-    groqForm.append('response_format', 'text');
-
-    const groqRes = await fetch('https://api.groq.com/openai/v1/audio/transcriptions', {
-      method: 'POST',
-      headers: { 'Authorization': `Bearer ${env.GROQ_API_KEY}` },
-      body: groqForm,
-    });
-    const text = await groqRes.text();
-    return new Response(JSON.stringify({ text }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
-  }
-
-  if (path === '/vision' && method === 'POST') {
-    const formData = await request.formData();
-    const file = formData.get('file');
-    const prompt = formData.get('prompt') || 'Describe this image in detail.';
-    if (!file) return new Response(JSON.stringify({ error: 'Missing file' }), { status: 400, headers: corsHeaders });
-
-    const buffer = await file.arrayBuffer();
-    const imageUrl = await uploadImage(buffer);
-    if (!imageUrl) throw new Error('Image upload failed');
-
-    const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${env.GROQ_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'meta-llama/llama-4-scout-17b-16e-instruct',
-        messages: [{
-          role: 'user',
-          content: [
-            { type: 'image_url', image_url: { url: imageUrl } },
-            { type: 'text', text: prompt }
-          ]
-        }],
-        max_tokens: 1024,
-      }),
-    });
-    const data = await groqRes.json();
-    const description = data?.choices?.[0]?.message?.content || '';
-    return new Response(JSON.stringify({ description }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
-  }
-
-  if (path === '/generate-image' && method === 'POST') {
-    const { category, prompt } = await request.json();
-    let baseUrl;
-    if (category === 'horror') baseUrl = 'https://apis.prexzyvilla.site/ai/horror';
-    else if (category === 'sci-fi') baseUrl = 'https://apis.prexzyvilla.site/ai/sci-fi';
-    else if (category === 'pixel-art') baseUrl = 'https://apis.prexzyvilla.site/ai/pixel-art';
-    else baseUrl = 'https://apis.prexzyvilla.site/ai/realistic';
-
-    const enhanced = `${prompt}, ultra HD, highly detailed, sharp focus, 8k`;
-    const negative = `blurry, low quality, bad anatomy, extra limbs, deformed, distorted face, ugly, cropped, watermark, text`;
-    const imageUrl = `${baseUrl}?prompt=${encodeURIComponent(enhanced)}&negative_prompt=${encodeURIComponent(negative)}`;
-
-    return new Response(JSON.stringify({ url: imageUrl }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
-  }
-
-  if (path === '/ocr' && method === 'POST') {
-    const formData = await request.formData();
-    const file = formData.get('file');
-    if (!file) return new Response(JSON.stringify({ error: 'Missing file' }), { status: 400, headers: corsHeaders });
-
-    const ocrForm = new FormData();
-    ocrForm.append('apikey', env.OCR_API_KEY);
-    ocrForm.append('language', 'eng');
-    ocrForm.append('isOverlayRequired', 'false');
-    ocrForm.append('file', file);
-
-    const ocrRes = await fetch('https://api.ocr.space/parse/image', { method: 'POST', body: ocrForm });
-    const data = await ocrRes.json();
-    const text = data?.ParsedResults?.[0]?.ParsedText?.trim() || '';
-    return new Response(JSON.stringify({ text }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
-  }
-
-  if (path === '/changebg' && method === 'POST') {
-    const formData = await request.formData();
-    const imageFile = formData.get('image');
-    const prompt = formData.get('prompt') || '';
-    if (!imageFile || !prompt) {
-      return new Response(JSON.stringify({ error: 'Missing image or prompt' }), { status: 400, headers: corsHeaders });
-    }
-
-    const externalForm = new FormData();
-    externalForm.append('image', imageFile, 'image.jpg');
-    externalForm.append('param', prompt);
-
-    const apiRes = await fetch('https://api.nexray.web.id/ai/gptimage', { method: 'POST', body: externalForm });
-    if (!apiRes.ok) {
-      return new Response(JSON.stringify({ error: `Upstream error: ${apiRes.status}` }), { status: apiRes.status, headers: corsHeaders });
-    }
-    const imageBuffer = await apiRes.arrayBuffer();
-    return new Response(imageBuffer, { headers: { ...corsHeaders, 'Content-Type': 'image/jpeg' } });
-  }
-    if (path === '/deepseek' && method === 'POST') {
-    const { query } = await request.json();
-    if (!query) {
-        return new Response(JSON.stringify({ error: 'Missing query' }), { status: 400, headers: corsHeaders });
 // ==================== API ROUTES ====================
 try {
     // ----- EXISTING AI SERVICES -----
@@ -684,126 +573,126 @@ ${query}`;
         });
     }
 
-
-  // ----- NEW: remove.bg proxy -----
-  if (path === '/rembg' && method === 'POST') {
-    const formData = await request.formData();
-    const imageFile = formData.get('image_file');
-    if (!imageFile) return new Response(JSON.stringify({ error: 'Missing image_file' }), { status: 400, headers: corsHeaders });
-    const size = formData.get('size') || 'auto';
-    const externalForm = new FormData();
-    externalForm.append('image_file', imageFile);
-    externalForm.append('size', size);
-    const apiRes = await fetch('https://api.remove.bg/v1.0/removebg', {
-      method: 'POST',
-      headers: { 'X-Api-Key': env.REMOVE_BG_API_KEY },
-      body: externalForm,
-    });
-    if (!apiRes.ok) {
-      const err = await apiRes.text();
-      return new Response(JSON.stringify({ error: `remove.bg error: ${apiRes.status}`, details: err }), { status: apiRes.status, headers: corsHeaders });
+    // ----- NEW: remove.bg proxy -----
+    if (path === '/rembg' && method === 'POST') {
+        const formData = await request.formData();
+        const imageFile = formData.get('image_file');
+        if (!imageFile) return new Response(JSON.stringify({ error: 'Missing image_file' }), { status: 400, headers: corsHeaders });
+        const size = formData.get('size') || 'auto';
+        const externalForm = new FormData();
+        externalForm.append('image_file', imageFile);
+        externalForm.append('size', size);
+        const apiRes = await fetch('https://api.remove.bg/v1.0/removebg', {
+            method: 'POST',
+            headers: { 'X-Api-Key': env.REMOVE_BG_API_KEY },
+            body: externalForm,
+        });
+        if (!apiRes.ok) {
+            const err = await apiRes.text();
+            return new Response(JSON.stringify({ error: `remove.bg error: ${apiRes.status}`, details: err }), { status: apiRes.status, headers: corsHeaders });
+        }
+        const imageBuffer = await apiRes.arrayBuffer();
+        return new Response(imageBuffer, { headers: { ...corsHeaders, 'Content-Type': 'image/png' } });
     }
-    const imageBuffer = await apiRes.arrayBuffer();
-    return new Response(imageBuffer, { headers: { ...corsHeaders, 'Content-Type': 'image/png' } });
-  }
 
-  // ----- PREXZYVILLA PROXY MAP (all endpoints) -----
-  const PREXZY_BASE = 'https://apis.prexzyvilla.site';
-  const proxyMap = {
-    '/ai/aiwriter-models': '/ai/aiwriter-models',
-    '/ai/copilot': '/ai/copilot',
-    '/ai/chateverywhere': '/ai/chateverywhere',
-    '/ai/code-advanced': '/ai/code-advanced',
-    '/ai/anime': '/ai/anime',
-    '/ai/oil-painting': '/ai/oil-painting',
-    '/ai/sketch': '/ai/sketch',
-    '/ai/cartoon': '/ai/cartoon',
-    '/ai/ai4chat': '/ai/ai4chat',
-    '/ai/detectbugs': '/ai/detectbugs',
-    '/ai/watercolor': '/ai/watercolor',
-    '/anime/animedetail': '/anime/animedetail',
-    '/anime/animesearch': '/anime/animesearch',
-    '/anime/manga-suggestions': '/anime/manga-suggestions',
-    '/anime/manga-search': '/anime/manga-search',
-    '/anime/reactions': '/anime/reactions',
-    '/download/aio': '/download/aio',
-    '/download/capcut': '/download/capcut',
-    '/download/twitter': '/download/twitter',
-    '/download/terabox': '/download/terabox',
-    '/download/threads': '/download/threads',
-    '/download/facebookv2': '/download/facebookv2',
-    '/download/saveweb2zip': '/download/saveweb2zip',
-    '/download/ytinfo': '/download/ytinfo',
-    '/game/quizcategories': '/game/quizcategories',
-    '/game/quizguess': '/game/quizguess',
-    '/imagecreator/memeText': '/imagecreator/memeText',
-    '/imagecreator/gif': '/imagecreator/gif',
-    '/imagecreator/spongebob': '/imagecreator/spongebob',
-    '/imagecreator/meme': '/imagecreator/meme',
-    '/moviesearch': '/moviesearch',
-    '/moviedetail': '/moviedetail',
-    '/random/anime/programming': '/random/anime/programming',
-    '/search/lyrics': '/search/lyrics',
-    '/search/wallpaper': '/search/wallpaper',
-    '/search/android1': '/search/android1',
-    '/search/applemusic': '/search/applemusic',
-    '/search/repos': '/search/repos',
-    '/search/code': '/search/code',
-    '/search/users': '/search/users',
-    '/search/wagroup': '/search/wagroup',
-    '/search/tggroup': '/search/tggroup',
-    '/search/ytmonet': '/search/ytmonet',
-    '/ssweb/webss': '/ssweb/webss',
-    '/ssweb/apiFlash': '/ssweb/apiFlash',
-    '/ssweb/screenshotLayer': '/ssweb/screenshotLayer',
-    '/pixelglitch': '/pixelglitch',
-    '/deletingtext': '/deletingtext',
-    '/freecreate': '/freecreate',
-    '/gradienttext': '/gradienttext',
-    '/tools/fdroidpackage': '/tools/fdroidpackage',
-    '/tools/tiktoktranscript': '/tools/tiktoktranscript',
-    '/tools/tag': '/tools/tag',
-    '/tools/compilejs': '/tools/compilejs',
-    '/tools/geoip': '/tools/geoip',
-    '/tools/myip': '/tools/myip',
-    '/tools/hostcheck': '/tools/hostcheck',
-    '/tools/html2imgdirect': '/tools/html2imgdirect',
-  };
+    // ----- PREXZYVILLA PROXY MAP (all endpoints) -----
+    const PREXZY_BASE = 'https://apis.prexzyvilla.site';
+    const proxyMap = {
+        '/ai/aiwriter-models': '/ai/aiwriter-models',
+        '/ai/copilot': '/ai/copilot',
+        '/ai/chateverywhere': '/ai/chateverywhere',
+        '/ai/code-advanced': '/ai/code-advanced',
+        '/ai/anime': '/ai/anime',
+        '/ai/oil-painting': '/ai/oil-painting',
+        '/ai/sketch': '/ai/sketch',
+        '/ai/cartoon': '/ai/cartoon',
+        '/ai/ai4chat': '/ai/ai4chat',
+        '/ai/detectbugs': '/ai/detectbugs',
+        '/ai/watercolor': '/ai/watercolor',
+        '/anime/animedetail': '/anime/animedetail',
+        '/anime/animesearch': '/anime/animesearch',
+        '/anime/manga-suggestions': '/anime/manga-suggestions',
+        '/anime/manga-search': '/anime/manga-search',
+        '/anime/reactions': '/anime/reactions',
+        '/download/aio': '/download/aio',
+        '/download/capcut': '/download/capcut',
+        '/download/twitter': '/download/twitter',
+        '/download/terabox': '/download/terabox',
+        '/download/threads': '/download/threads',
+        '/download/facebookv2': '/download/facebookv2',
+        '/download/saveweb2zip': '/download/saveweb2zip',
+        '/download/ytinfo': '/download/ytinfo',
+        '/game/quizcategories': '/game/quizcategories',
+        '/game/quizguess': '/game/quizguess',
+        '/imagecreator/memeText': '/imagecreator/memeText',
+        '/imagecreator/gif': '/imagecreator/gif',
+        '/imagecreator/spongebob': '/imagecreator/spongebob',
+        '/imagecreator/meme': '/imagecreator/meme',
+        '/moviesearch': '/moviesearch',
+        '/moviedetail': '/moviedetail',
+        '/random/anime/programming': '/random/anime/programming',
+        '/search/lyrics': '/search/lyrics',
+        '/search/wallpaper': '/search/wallpaper',
+        '/search/android1': '/search/android1',
+        '/search/applemusic': '/search/applemusic',
+        '/search/repos': '/search/repos',
+        '/search/code': '/search/code',
+        '/search/users': '/search/users',
+        '/search/wagroup': '/search/wagroup',
+        '/search/tggroup': '/search/tggroup',
+        '/search/ytmonet': '/search/ytmonet',
+        '/ssweb/webss': '/ssweb/webss',
+        '/ssweb/apiFlash': '/ssweb/apiFlash',
+        '/ssweb/screenshotLayer': '/ssweb/screenshotLayer',
+        '/pixelglitch': '/pixelglitch',
+        '/deletingtext': '/deletingtext',
+        '/freecreate': '/freecreate',
+        '/gradienttext': '/gradienttext',
+        '/tools/fdroidpackage': '/tools/fdroidpackage',
+        '/tools/tiktoktranscript': '/tools/tiktoktranscript',
+        '/tools/tag': '/tools/tag',
+        '/tools/compilejs': '/tools/compilejs',
+        '/tools/geoip': '/tools/geoip',
+        '/tools/myip': '/tools/myip',
+        '/tools/hostcheck': '/tools/hostcheck',
+        '/tools/html2imgdirect': '/tools/html2imgdirect',
+    };
 
-  if (path === '/ai/nanobanana' && method === 'GET') {
-    const prompt = url.searchParams.get('prompt') || '';
-    const numImages = url.searchParams.get('num_images') || '1';
-    const imageSize = url.searchParams.get('image_size') || '1024x1024';
-    const outputFormat = url.searchParams.get('output_format') || 'png';
-    const target = `${PREXZY_BASE}/ai/nanobanana?prompt=${encodeURIComponent(prompt)}&num_images=${numImages}&image_size=${imageSize}&output_format=${outputFormat}`;
-    const res = await fetch(target);
-    return new Response(res.body, { headers: { ...corsHeaders, 'Content-Type': res.headers.get('Content-Type') } });
-  }
-  if (path === '/ai/nanobanana-img' && method === 'POST') {
-    const formData = await request.formData();
-    const target = `${PREXZY_BASE}/ai/nanobanana-img`;
-    const res = await fetch(target, { method: 'POST', body: formData });
-    return new Response(res.body, { headers: { ...corsHeaders, 'Content-Type': res.headers.get('Content-Type') } });
-  }
-
-  if (proxyMap[path] && (method === 'GET' || method === 'POST')) {
-    const targetUrl = `${PREXZY_BASE}${proxyMap[path]}?${url.searchParams.toString()}`;
-    const init = { method };
-    if (method === 'POST') {
-      init.body = request.body;
-      const contentType = request.headers.get('Content-Type');
-      if (contentType) init.headers = { 'Content-Type': contentType };
+    if (path === '/ai/nanobanana' && method === 'GET') {
+        const prompt = url.searchParams.get('prompt') || '';
+        const numImages = url.searchParams.get('num_images') || '1';
+        const imageSize = url.searchParams.get('image_size') || '1024x1024';
+        const outputFormat = url.searchParams.get('output_format') || 'png';
+        const target = `${PREXZY_BASE}/ai/nanobanana?prompt=${encodeURIComponent(prompt)}&num_images=${numImages}&image_size=${imageSize}&output_format=${outputFormat}`;
+        const res = await fetch(target);
+        return new Response(res.body, { headers: { ...corsHeaders, 'Content-Type': res.headers.get('Content-Type') } });
     }
-    const res = await fetch(targetUrl, init);
-    return new Response(res.body, { headers: { ...corsHeaders, 'Content-Type': res.headers.get('Content-Type') || 'application/json' } });
-  }
+    if (path === '/ai/nanobanana-img' && method === 'POST') {
+        const formData = await request.formData();
+        const target = `${PREXZY_BASE}/ai/nanobanana-img`;
+        const res = await fetch(target, { method: 'POST', body: formData });
+        return new Response(res.body, { headers: { ...corsHeaders, 'Content-Type': res.headers.get('Content-Type') } });
+    }
 
-  // If no route matches
-//  return new Response(JSON.stringify({ error: 'Endpoint not found' }), { status: 404, headers: corsHeaders });//} catch (err) {
- // console.error(err);
-//  return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: corsHeaders });
-   //                     }
-          // If no route matches
+    if (proxyMap[path] && (method === 'GET' || method === 'POST')) {
+        const targetUrl = `${PREXZY_BASE}${proxyMap[path]}?${url.searchParams.toString()}`;
+        const init = { method };
+        if (method === 'POST') {
+            init.body = request.body;
+            const contentType = request.headers.get('Content-Type');
+            if (contentType) init.headers = { 'Content-Type': contentType };
+        }
+        const res = await fetch(targetUrl, init);
+        return new Response(res.body, { headers: { ...corsHeaders, 'Content-Type': res.headers.get('Content-Type') || 'application/json' } });
+    }
+
+    // If no route matches
+    return new Response(JSON.stringify({ error: 'Endpoint not found' }), { status: 404, headers: corsHeaders });
+} catch (err) {
+    console.error(err);
+    return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: corsHeaders });
+                          }
+        // If no route matches
     return new Response(JSON.stringify({ error: 'Endpoint not found' }), { status: 404, headers: corsHeaders });
   } catch (err) {
     console.error(err);
