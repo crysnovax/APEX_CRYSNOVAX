@@ -200,6 +200,46 @@ export default {
                 { method: 'GET', path: '/anime/reactions', desc: 'Anime Reactions' },
                 { method: 'GET', path: '/random/anime/programming', desc: 'Random Anime' }
             ] },
+            { category: '🎭 Reactions ⚡', endpoints: [
+    { method: 'GET', path: '/reactions/hug', desc: 'Send a warm hug GIF' },
+    { method: 'GET', path: '/reactions/kiss', desc: 'Blow a kiss GIF' },
+    { method: 'GET', path: '/reactions/slap', desc: 'Slap someone with a GIF' },
+    { method: 'GET', path: '/reactions/kill', desc: 'Eliminate with style' },
+    { method: 'GET', path: '/reactions/dance', desc: 'Dance it out' },
+    { method: 'GET', path: '/reactions/laugh', desc: 'Laugh out loud' },
+    { method: 'GET', path: '/reactions/cry', desc: 'Cry a river' },
+    { method: 'GET', path: '/reactions/highfive', desc: 'High five!' },
+    { method: 'GET', path: '/reactions/giggles', desc: 'Giggle uncontrollably' },
+    { method: 'GET', path: '/reactions/fight', desc: 'Start a fight' },
+    { method: 'GET', path: '/reactions/pat', desc: 'Give a gentle pat' },
+    { method: 'GET', path: '/reactions/bite', desc: 'Take a bite' },
+    { method: 'GET', path: '/reactions/smile', desc: 'Bright smile' },
+    { method: 'GET', path: '/reactions/angry', desc: 'Get angry' },
+    { method: 'GET', path: '/reactions/cuddle', desc: 'Cuddle up' },
+    { method: 'GET', path: '/reactions/poke', desc: 'Poke someone' },
+    { method: 'GET', path: '/reactions/boop', desc: 'Boop the nose' },
+    { method: 'GET', path: '/reactions/lick', desc: 'Give a lick' },
+    { method: 'GET', path: '/reactions/shoot', desc: 'Shoot' },
+    { method: 'GET', path: '/reactions/stab', desc: 'Stab' },
+    { method: 'GET', path: '/reactions/wink', desc: 'Wink' },
+    { method: 'GET', path: '/reactions/yawn', desc: 'Yawn' },
+    { method: 'GET', path: '/reactions/blush', desc: 'Blush' },
+    { method: 'GET', path: '/reactions/punch', desc: 'Throw a punch' },
+    { method: 'GET', path: '/reactions/headpat', desc: 'Pat the head' },
+    { method: 'GET', path: '/reactions/tickle', desc: 'Tickle' },
+    { method: 'GET', path: '/reactions/snuggle', desc: 'Snuggle' },
+    { method: 'GET', path: '/reactions/glare', desc: 'Give a glare' },
+    { method: 'GET', path: '/reactions/wave', desc: 'Wave hello/goodbye' },
+    { method: 'GET', path: '/reactions/clap', desc: 'Applaud' },
+    { method: 'GET', path: '/reactions/facepalm', desc: 'Facepalm' },
+    { method: 'GET', path: '/reactions/shrug', desc: 'Shrug' },
+    { method: 'GET', path: '/reactions/thumbsup', desc: 'Thumbs up' },
+    { method: 'GET', path: '/reactions/ok', desc: 'OK gesture' },
+    { method: 'GET', path: '/reactions/peace', desc: 'Peace sign' },
+    { method: 'GET', path: '/reactions/fistbump', desc: 'Fist bump' },
+    { method: 'GET', path: '/reactions/nope', desc: 'Nope / Disapprove' },
+    { method: 'GET', path: '/reactions/evil', desc: 'Evil grin' }
+] }
             { category: '✨ Text Effects —͟͟͞͞𖣘', endpoints: [
                 { method: 'GET', path: '/pixelglitch', desc: 'Pixel Glitch' },
                 { method: 'GET', path: '/deletingtext', desc: 'Deleting Text' },
@@ -578,6 +618,41 @@ if (path === '/tools/tts' && method === 'GET') {
             const imageBuffer = await apiRes.arrayBuffer();
             return new Response(imageBuffer, { headers: { ...corsHeaders, 'Content-Type': 'image/jpeg' } });
         }
+        // ==================== REACTIONS API ====================
+const REACTION_LIST = [
+    'hug', 'kiss', 'slap', 'kill', 'dance', 'laugh', 'cry', 'highfive',
+    'giggles', 'fight', 'pat', 'bite', 'smile', 'angry', 'cuddle', 'poke',
+    'boop', 'lick', 'shoot', 'stab', 'wink', 'yawn', 'blush', 'punch',
+    'headpat', 'tickle', 'snuggle', 'glare', 'wave', 'clap', 'facepalm',
+    'shrug', 'thumbsup', 'ok', 'peace', 'fistbump', 'nope', 'evil'
+];
+
+// Helper: fetch GIF from GIPHY
+async function fetchGif(query) {
+    const GIPHY_KEY = 'qnl7ssQChTdPjsKta2Ax2LMaGXz303tq'; // or use env.GIPHY_API_KEY
+    const url = `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_KEY}&q=${encodeURIComponent(query)}&limit=20&rating=g`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (!data.data || data.data.length === 0) return null;
+    const random = data.data[Math.floor(Math.random() * data.data.length)];
+    return random.images.fixed_height.mp4;
+}
+
+// Generate endpoints for each reaction
+for (const reaction of REACTION_LIST) {
+    if (path === `/reactions/${reaction}` && method === 'GET') {
+        const gifUrl = await fetchGif(`${reaction} anime`);
+        if (!gifUrl) {
+            return new Response(JSON.stringify({ error: 'No GIF found' }), {
+                status: 404,
+                headers: corsHeaders
+            });
+        }
+        return new Response(JSON.stringify({ url: gifUrl }), {
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+    }
+}
 
         // ----- NEW: remini endpoint (image enhancement) -----
         if (path === '/remini' && method === 'POST') {
