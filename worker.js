@@ -506,9 +506,120 @@ try {
     const { query } = await request.json();
     if (!query) {
         return new Response(JSON.stringify({ error: 'Missing query' }), { status: 400, headers: corsHeaders });
+// ==================== API ROUTES ====================
+try {
+    // ----- EXISTING AI SERVICES -----
+    if (path === '/transcribe' && method === 'POST') {
+        const formData = await request.formData();
+        const file = formData.get('file');
+        if (!file) return new Response(JSON.stringify({ error: 'Missing file' }), { status: 400, headers: corsHeaders });
+
+        const groqForm = new FormData();
+        groqForm.append('file', file, 'audio.ogg');
+        groqForm.append('model', 'whisper-large-v3-turbo');
+        groqForm.append('response_format', 'text');
+
+        const groqRes = await fetch('https://api.groq.com/openai/v1/audio/transcriptions', {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${env.GROQ_API_KEY}` },
+            body: groqForm,
+        });
+        const text = await groqRes.text();
+        return new Response(JSON.stringify({ text }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
 
-    const trainingPrompt = `You are Deepseek AI powered by Crysnova.
+    if (path === '/vision' && method === 'POST') {
+        const formData = await request.formData();
+        const file = formData.get('file');
+        const prompt = formData.get('prompt') || 'Describe this image in detail.';
+        if (!file) return new Response(JSON.stringify({ error: 'Missing file' }), { status: 400, headers: corsHeaders });
+
+        const buffer = await file.arrayBuffer();
+        const imageUrl = await uploadImage(buffer);
+        if (!imageUrl) throw new Error('Image upload failed');
+
+        const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${env.GROQ_API_KEY}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+                messages: [{
+                    role: 'user',
+                    content: [
+                        { type: 'image_url', image_url: { url: imageUrl } },
+                        { type: 'text', text: prompt }
+                    ]
+                }],
+                max_tokens: 1024,
+            }),
+        });
+        const data = await groqRes.json();
+        const description = data?.choices?.[0]?.message?.content || '';
+        return new Response(JSON.stringify({ description }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+    }
+
+    if (path === '/generate-image' && method === 'POST') {
+        const { category, prompt } = await request.json();
+        let baseUrl;
+        if (category === 'horror') baseUrl = 'https://apis.prexzyvilla.site/ai/horror';
+        else if (category === 'sci-fi') baseUrl = 'https://apis.prexzyvilla.site/ai/sci-fi';
+        else if (category === 'pixel-art') baseUrl = 'https://apis.prexzyvilla.site/ai/pixel-art';
+        else baseUrl = 'https://apis.prexzyvilla.site/ai/realistic';
+
+        const enhanced = `${prompt}, ultra HD, highly detailed, sharp focus, 8k`;
+        const negative = `blurry, low quality, bad anatomy, extra limbs, deformed, distorted face, ugly, cropped, watermark, text`;
+        const imageUrl = `${baseUrl}?prompt=${encodeURIComponent(enhanced)}&negative_prompt=${encodeURIComponent(negative)}`;
+
+        return new Response(JSON.stringify({ url: imageUrl }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+    }
+
+    if (path === '/ocr' && method === 'POST') {
+        const formData = await request.formData();
+        const file = formData.get('file');
+        if (!file) return new Response(JSON.stringify({ error: 'Missing file' }), { status: 400, headers: corsHeaders });
+
+        const ocrForm = new FormData();
+        ocrForm.append('apikey', env.OCR_API_KEY);
+        ocrForm.append('language', 'eng');
+        ocrForm.append('isOverlayRequired', 'false');
+        ocrForm.append('file', file);
+
+        const ocrRes = await fetch('https://api.ocr.space/parse/image', { method: 'POST', body: ocrForm });
+        const data = await ocrRes.json();
+        const text = data?.ParsedResults?.[0]?.ParsedText?.trim() || '';
+        return new Response(JSON.stringify({ text }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+    }
+
+    if (path === '/changebg' && method === 'POST') {
+        const formData = await request.formData();
+        const imageFile = formData.get('image');
+        const prompt = formData.get('prompt') || '';
+        if (!imageFile || !prompt) {
+            return new Response(JSON.stringify({ error: 'Missing image or prompt' }), { status: 400, headers: corsHeaders });
+        }
+
+        const externalForm = new FormData();
+        externalForm.append('image', imageFile, 'image.jpg');
+        externalForm.append('param', prompt);
+
+        const apiRes = await fetch('https://api.nexray.web.id/ai/gptimage', { method: 'POST', body: externalForm });
+        if (!apiRes.ok) {
+            return new Response(JSON.stringify({ error: `Upstream error: ${apiRes.status}` }), { status: apiRes.status, headers: corsHeaders });
+        }
+        const imageBuffer = await apiRes.arrayBuffer();
+        return new Response(imageBuffer, { headers: { ...corsHeaders, 'Content-Type': 'image/jpeg' } });
+    }
+
+    if (path === '/deepseek' && method === 'POST') {
+        const { query } = await request.json();
+        if (!query) {
+            return new Response(JSON.stringify({ error: 'Missing query' }), { status: 400, headers: corsHeaders });
+        }
+
+        const trainingPrompt = `You are Deepseek AI powered by Crysnova.
 
 Rules:
 - Reply naturally and directly.
@@ -520,36 +631,59 @@ Rules:
 User Question:
 ${query}`;
 
-    // Use the new Prexzyvilla DeepSeek Chat endpoint
-    const apiUrl = `https://apis.prexzyvilla.site/ai/deepseekchat?prompt=${encodeURIComponent(trainingPrompt)}`;
-    const apiRes = await fetch(apiUrl);
-    const data = await apiRes.json();
+        const apiUrl = `https://apis.prexzyvilla.site/ai/deepseekchat?prompt=${encodeURIComponent(trainingPrompt)}`;
+        const apiRes = await fetch(apiUrl);
+        const data = await apiRes.json();
 
-    // Extract the response
-    let reply = '';
-    if (data?.result) {
-        reply = data.result;
-    } else if (data?.response) {
-        reply = data.response;
-    } else if (typeof data === 'string') {
-        reply = data;
-    } else {
-        reply = JSON.stringify(data);
+        let reply = '';
+        if (data?.result) {
+            reply = data.result;
+        } else if (data?.response) {
+            reply = data.response;
+        } else if (typeof data === 'string') {
+            reply = data;
+        } else {
+            reply = JSON.stringify(data);
+        }
+
+        const responsePayload = {
+            success: true,
+            message: { content: reply }
+        };
+
+        return new Response(JSON.stringify(responsePayload), {
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
     }
 
-    // Return in the expected format
-    const responsePayload = {
-        success: true,
-        message: { content: reply }
-    };
+    if (path === '/chat' && method === 'POST') {
+        const { prompt, model } = await request.json();
+        if (!prompt) {
+            return new Response(JSON.stringify({ error: 'Missing prompt' }), { status: 400, headers: corsHeaders });
+        }
 
-    return new Response(JSON.stringify(responsePayload), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-    });
+        const apiUrl = `https://apis.prexzyvilla.site/ai/chateverywhere?text=${encodeURIComponent(prompt)}`;
+        const apiRes = await fetch(apiUrl);
+        const data = await apiRes.json();
+
+        let reply = '';
+        if (data?.message) {
+            reply = data.message;
+        } else if (data?.reply) {
+            reply = data.reply;
+        } else if (data?.response) {
+            reply = data.response;
+        } else if (typeof data === 'string') {
+            reply = data;
+        } else {
+            reply = JSON.stringify(data);
+        }
+
+        return new Response(JSON.stringify({ response: reply }), {
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
     }
 
-  
-    
 
   // ----- NEW: remove.bg proxy -----
   if (path === '/rembg' && method === 'POST') {
