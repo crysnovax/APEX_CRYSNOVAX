@@ -502,8 +502,7 @@ try {
     const imageBuffer = await apiRes.arrayBuffer();
     return new Response(imageBuffer, { headers: { ...corsHeaders, 'Content-Type': 'image/jpeg' } });
   }
-
-  if (path === '/deepseek' && method === 'POST') {
+    if (path === '/deepseek' && method === 'POST') {
     const { query } = await request.json();
     if (!query) {
         return new Response(JSON.stringify({ error: 'Missing query' }), { status: 400, headers: corsHeaders });
@@ -526,7 +525,7 @@ ${query}`;
     const apiRes = await fetch(apiUrl);
     const data = await apiRes.json();
 
-    // Format the response to match what the bot expects
+    // Extract the response
     let reply = '';
     if (data?.result) {
         reply = data.result;
@@ -538,7 +537,7 @@ ${query}`;
         reply = JSON.stringify(data);
     }
 
-    // Return in the same structure as before so the bot command works unchanged
+    // Return in the expected format
     const responsePayload = {
         success: true,
         message: { content: reply }
@@ -547,7 +546,9 @@ ${query}`;
     return new Response(JSON.stringify(responsePayload), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
     });
-  }
+    }
+
+  
     
 
   // ----- NEW: remove.bg proxy -----
