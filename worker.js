@@ -549,29 +549,7 @@ ${query}`;
     });
   }
     
-    // Use the working Prexzyvilla endpoint instead of the broken one
-    const apiUrl = `https://apis.prexzyvilla.site/ai/chateverywhere?text=${encodeURIComponent(prompt)}`;
-    const apiRes = await fetch(apiUrl);
-    const data = await apiRes.json();
-    
-    // Extract the response text from the Prexzyvilla format
-    let reply = '';
-    if (data?.message) {
-        reply = data.message;
-    } else if (data?.reply) {
-        reply = data.reply;
-    } else if (data?.response) {
-        reply = data.response;
-    } else if (typeof data === 'string') {
-        reply = data;
-    } else {
-        reply = JSON.stringify(data);
-    }
-    
-    return new Response(JSON.stringify({ response: reply }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-    });
-  }
+
   // ----- NEW: remove.bg proxy -----
   if (path === '/rembg' && method === 'POST') {
     const formData = await request.formData();
