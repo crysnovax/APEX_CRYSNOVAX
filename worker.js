@@ -803,10 +803,10 @@ ${query}`;
  // console.error(err);
 //  return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: corsHeaders });
    //                     }
-      return new Response(JSON.stringify({ error: 'Endpoint not found' }), { status: 404, headers: corsHeaders });
-    } catch (err) {
-      console.error(err);
-      return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: corsHeaders });
-    }
+          // If no route matches
+    return new Response(JSON.stringify({ error: 'Endpoint not found' }), { status: 404, headers: corsHeaders });
+  } catch (err) {
+    console.error(err);
+    return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: corsHeaders });
   }
 };
