@@ -200,7 +200,7 @@ export default {
                 { method: 'GET', path: '/anime/reactions', desc: 'Anime Reactions' },
                 { method: 'GET', path: '/random/anime/programming', desc: 'Random Anime' }
             ] },
-            { category: '🎭 Reactions ⚡', endpoints: [
+            { category: '🎭 Reactions ಥ⁠‿⁠ಥ', endpoints: [
     { method: 'GET', path: '/reactions/hug', desc: 'Send a warm hug GIF' },
     { method: 'GET', path: '/reactions/kiss', desc: 'Blow a kiss GIF' },
     { method: 'GET', path: '/reactions/slap', desc: 'Slap someone with a GIF' },
