@@ -570,7 +570,7 @@ export default {
   <div class="container">
     <div class="header">
       <h1>ஃ𖠃 APEX CRYSN⎔VA 🜲</h1>
-      <div class="powered-by">⚡ 100% NEXRAY POWERED · ZERO PREXZY ⚡</div>
+      <div class="powered-by">⚡ 100% APEX POWERED · ZERO ERRORS ⚡</div>
       <div class="subtitle">255+ Endpoints · 24/7 Active · One Gateway to Rule Them All</div>
       <div class="status-badge"><span class="pulse-dot"></span><span id="globalStatus">🌐 All Systems Operational</span></div>
     </div>
