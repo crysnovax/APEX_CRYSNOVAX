@@ -171,70 +171,7 @@ export default {
       `, { headers: { 'Content-Type': 'text/html' } });
     }
 
-    // ==================== FRONTEND LANDING PAGE (PUBLIC) ====================
-    if (path === '/' && method === 'GET') {
-        const endpointsByCategory = [
-            { category: '🤖 AI Chat PRO 🜲', endpoints: [
-                { method: 'GET', path: '/ai/gemini', desc: 'Gemini AI' },
-                { method: 'GET', path: '/ai/chatgpt', desc: 'ChatGPT' },
-                { method: 'GET', path: '/ai/deepseek', desc: 'DeepSeek AI' },
-                { method: 'GET', path: '/ai/claude', desc: 'Claude AI' },
-                { method: 'GET', path: '/ai/copilot', desc: 'Copilot' },
-                { method: 'GET', path: '/ai/perplexity', desc: 'Perplexity AI' },
-                { method: 'GET', path: '/ai/turbochat', desc: 'TurboChat' }
-            ] },
-            { category: '🎨 Image Generation ✐', endpoints: [
-                { method: 'POST', path: '/ai/deepimg', desc: 'DeepImg Generation' },
-                { method: 'POST', path: '/ai/v1/flux', desc: 'Flux Image' },
-                { method: 'POST', path: '/ai/gptimage', desc: 'GPT Image' },
-                { method: 'POST', path: '/ai/nanobanana', desc: 'NanoBanana (Anime)' },
-                { method: 'POST', path: '/ai/magicstudio', desc: 'Magic Studio' },
-                { method: 'POST', path: '/ai/ideogram', desc: 'Ideogram' }
-            ] },
-            { category: '🛠️ Tools ⎔', endpoints: [
-                { method: 'POST', path: '/transcribe', desc: 'Voice Transcription' },
-                { method: 'POST', path: '/vision', desc: 'Image Description' },
-                { method: 'POST', path: '/tools/ocr', desc: 'OCR Text Extraction' },
-                { method: 'POST', path: '/tools/removebg', desc: 'Remove Background' },
-                { method: 'POST', path: '/tools/remini', desc: 'Enhance Image' },
-                { method: 'GET', path: '/tools/translate', desc: 'Translate Text' },
-                { method: 'GET', path: '/tools/tts-google', desc: 'Text to Speech' }
-            ] },
-            { category: '🔍 Search ⌘', endpoints: [
-                { method: 'GET', path: '/search/youtube', desc: 'YouTube Search' },
-                { method: 'GET', path: '/search/pinterest', desc: 'Pinterest' },
-                { method: 'GET', path: '/search/googleimage', desc: 'Google Images' },
-                { method: 'GET', path: '/search/spotify', desc: 'Spotify' },
-                { method: 'GET', path: '/search/lyrics', desc: 'Song Lyrics' },
-                { method: 'GET', path: '/search/github', desc: 'GitHub' }
-            ] },
-            { category: '🎭 Reactions ⚡', endpoints: [
-                { method: 'GET', path: '/reactions/hug', desc: 'Hug GIF' },
-                { method: 'GET', path: '/reactions/kiss', desc: 'Kiss GIF' },
-                { method: 'GET', path: '/reactions/slap', desc: 'Slap GIF' },
-                { method: 'GET', path: '/reactions/dance', desc: 'Dance GIF' },
-                { method: 'GET', path: '/reactions/pat', desc: 'Pat GIF' },
-                { method: 'GET', path: '/reactions/cuddle', desc: 'Cuddle GIF' }
-            ] },
-            { category: '🎨 Photo Effects ✨', endpoints: [
-                { method: 'POST', path: '/ephoto/anime', desc: 'Anime Effect' },
-                { method: 'POST', path: '/ephoto/ghibli', desc: 'Ghibli Style' },
-                { method: 'POST', path: '/ephoto/comic', desc: 'Comic Effect' },
-                { method: 'POST', path: '/ephoto/cinematic', desc: 'Cinematic' }
-            ] },
-            { category: '✏️ Text Effects 文字', endpoints: [
-                { method: 'GET', path: '/textpro/avengers', desc: 'Avengers Logo' },
-                { method: 'GET', path: '/textpro/glitch', desc: 'Glitch Text' },
-                { method: 'GET', path: '/textpro/naruto', desc: 'Naruto Style' },
-                { method: 'GET', path: '/textpro/wolf-galaxy', desc: 'Wolf Galaxy' }
-            ] },
-            { category: '🛠️ Maker Tools', endpoints: [
-                { method: 'GET', path: '/maker/attp', desc: 'Animated Text PNG' },
-                { method: 'GET', path: '/maker/brat', desc: 'Brat Generator' },
-                { method: 'GET', path: '/maker/fakestory', desc: 'Fake Story' },
-                { method: 'GET', path: '/maker/qc', desc: 'Quote Creator' }
-            ] }
-        ];
+    
 
         const html = `<!DOCTYPE html>
 <html lang="en">
@@ -250,7 +187,219 @@ export default {
     .header{text-align:center;margin-bottom:3rem;backdrop-filter:blur(8px);background:rgba(20,15,10,0.3);border:1px solid rgba(212,175,55,0.3);border-radius:40px;padding:2.5rem 2rem;box-shadow:0 20px 40px rgba(0,0,0,0.6),0 0 40px rgba(212,175,55,0.1)}
     h1{font-size:3.5rem;font-weight:700;background:linear-gradient(135deg,#d4af37 0%,#ff4d4d 80%);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.02em;margin-bottom:0.5rem;text-shadow:0 0 30px rgba(212,175,55,0.3)}
     .subtitle{font-size:1.2rem;color:#b0a080;margin-bottom:1.5rem}
-    .powered-by{display:inline-block;background:rgba(212,175,55,0.15);border:1px solid #d4af37;padding:6px 20px;border-radius:40px;font-size:0.9rem;margin-bottom:1rem}
+    .powered-by{display:inline-block;background:rgba(2// FRONTEND LANDING PAGE (PUBLIC) - COMPLETE VERSION
+if (path === '/' && method === 'GET') {
+    const endpointsByCategory = [
+        { category: '🤖 AI Chat (52)', endpoints: [
+            { method: 'GET', path: '/ai/gemini', desc: 'Gemini AI' },
+            { method: 'GET', path: '/ai/bypass', desc: 'AI Bypass' },
+            { method: 'GET', path: '/ai/chatgpt', desc: 'ChatGPT' },
+            { method: 'GET', path: '/ai/claude', desc: 'Claude AI' },
+            { method: 'GET', path: '/ai/copilot', desc: 'Copilot' },
+            { method: 'GET', path: '/ai/deepseek', desc: 'DeepSeek AI' },
+            { method: 'GET', path: '/ai/dgaf', desc: 'DGAF AI' },
+            { method: 'GET', path: '/ai/epsilon', desc: 'Epsilon AI' },
+            { method: 'GET', path: '/ai/felo', desc: 'Felo AI' },
+            { method: 'GET', path: '/ai/gitagpt', desc: 'GitaGPT' },
+            { method: 'GET', path: '/ai/gpt-3.5-turbo', desc: 'GPT-3.5 Turbo' },
+            { method: 'GET', path: '/ai/islamic', desc: 'Islamic AI' },
+            { method: 'GET', path: '/ai/kimi', desc: 'Kimi AI' },
+            { method: 'GET', path: '/ai/mathgpt', desc: 'MathGPT' },
+            { method: 'GET', path: '/ai/openai', desc: 'OpenAI' },
+            { method: 'GET', path: '/ai/overchat', desc: 'OverChat' },
+            { method: 'GET', path: '/ai/perplexity', desc: 'Perplexity' },
+            { method: 'GET', path: '/ai/quillbot', desc: 'QuillBot' },
+            { method: 'GET', path: '/ai/schoolhub', desc: 'SchoolHub' },
+            { method: 'GET', path: '/ai/turbochat', desc: 'TurboChat' },
+            { method: 'GET', path: '/ai/turboseek', desc: 'TurboSeek' },
+            { method: 'GET', path: '/ai/dolphin?template=logical', desc: 'Dolphin (Logical)' },
+            { method: 'GET', path: '/ai/dolphin?template=creative', desc: 'Dolphin (Creative)' },
+            { method: 'GET', path: '/ai/dolphin?template=summarize', desc: 'Dolphin (Summarize)' },
+            { method: 'GET', path: '/ai/dolphin?template=code-advanced', desc: 'Dolphin (Code)' },
+            { method: 'GET', path: '/ai/duck?model=claude-haiku-4-5', desc: 'Duck (Claude Haiku)' },
+            { method: 'GET', path: '/ai/duck?model=gpt-4o-mini', desc: 'Duck (GPT-4o Mini)' },
+            { method: 'GET', path: '/ai/duck?model=gpt-5-mini', desc: 'Duck (GPT-5 Mini)' },
+            { method: 'GET', path: '/ai/glm?model=glm-4.6', desc: 'GLM 4.6' },
+            { method: 'GET', path: '/ai/glm?model=glm-4.6v', desc: 'GLM 4.6V (Vision)' },
+            { method: 'GET', path: '/ai/glm?model=glm-4.5', desc: 'GLM 4.5' },
+            { method: 'GET', path: '/ai/glm?model=chatglm', desc: 'ChatGLM' },
+            { method: 'GET', path: '/ai/hammer?model=Sleepy', desc: 'Hammer (Sleepy)' },
+            { method: 'GET', path: '/ai/hammer?model=Sarah', desc: 'Hammer (Sarah)' },
+            { method: 'GET', path: '/ai/hammer?model=Aiko', desc: 'Hammer (Aiko)' },
+            { method: 'GET', path: '/ai/heck?model=openai/gpt-5-nano', desc: 'Heck (GPT-5 Nano)' },
+            { method: 'GET', path: '/ai/heck?model=google/gemini-2.0-flash-001', desc: 'Heck (Gemini Flash)' },
+            { method: 'GET', path: '/ai/llamacoder?model=qwen3-coder', desc: 'LlamaCoder (Qwen)' },
+            { method: 'GET', path: '/ai/llamacoder?model=deepseek-v3.1', desc: 'LlamaCoder (DeepSeek)' },
+            { method: 'GET', path: '/ai/llamacoder?model=kimi-k2.1', desc: 'LlamaCoder (Kimi)' },
+            { method: 'GET', path: '/ai/story?mode=Any+genre&length=Short&creative=Medium', desc: 'Story (Short/Medium)' },
+            { method: 'GET', path: '/ai/story?mode=Any+genre&length=Novel&creative=High', desc: 'Story (Novel/High)' }
+        ] },
+        { category: '🎨 AI Image Generation (12)', endpoints: [
+            { method: 'POST', path: '/ai/deepimg', desc: 'DeepImg' },
+            { method: 'POST', path: '/ai/v1/flux', desc: 'Flux v1' },
+            { method: 'POST', path: '/ai/gptimage', desc: 'GPT Image' },
+            { method: 'POST', path: '/ai/ideogram', desc: 'Ideogram' },
+            { method: 'POST', path: '/ai/lumin', desc: 'Lumin' },
+            { method: 'POST', path: '/ai/magicstudio', desc: 'Magic Studio' },
+            { method: 'POST', path: '/ai/nanobanana', desc: 'NanoBanana' },
+            { method: 'POST', path: '/ai/v1/text2image', desc: 'Text2Image v1' },
+            { method: 'POST', path: '/ai/writecreamimg?ratio=1:1', desc: 'WriteCream (1:1)' },
+            { method: 'POST', path: '/ai/writecreamimg?ratio=9:16', desc: 'WriteCream (9:16)' }
+        ] },
+        { category: '🎵 AI Audio/Video (5)', endpoints: [
+            { method: 'GET', path: '/ai/gemini-tts', desc: 'Gemini TTS' },
+            { method: 'GET', path: '/ai/suno', desc: 'Suno AI Music' },
+            { method: 'GET', path: '/ai/veo2', desc: 'Veo 2 Video' },
+            { method: 'GET', path: '/ai/veo3', desc: 'Veo 3 Video' },
+            { method: 'GET', path: '/ai/deepsearch', desc: 'DeepSearch' }
+        ] },
+        { category: '🎭 Reactions (39)', endpoints: [
+            { method: 'GET', path: '/reactions/hug', desc: 'Hug' },
+            { method: 'GET', path: '/reactions/kiss', desc: 'Kiss' },
+            { method: 'GET', path: '/reactions/slap', desc: 'Slap' },
+            { method: 'GET', path: '/reactions/kill', desc: 'Kill' },
+            { method: 'GET', path: '/reactions/dance', desc: 'Dance' },
+            { method: 'GET', path: '/reactions/laugh', desc: 'Laugh' },
+            { method: 'GET', path: '/reactions/cry', desc: 'Cry' },
+            { method: 'GET', path: '/reactions/highfive', desc: 'High Five' },
+            { method: 'GET', path: '/reactions/pat', desc: 'Pat' },
+            { method: 'GET', path: '/reactions/cuddle', desc: 'Cuddle' },
+            { method: 'GET', path: '/reactions/poke', desc: 'Poke' },
+            { method: 'GET', path: '/reactions/wink', desc: 'Wink' },
+            { method: 'GET', path: '/reactions/blush', desc: 'Blush' },
+            { method: 'GET', path: '/reactions/wave', desc: 'Wave' },
+            { method: 'GET', path: '/reactions/clap', desc: 'Clap' },
+            { method: 'GET', path: '/reactions/thumbsup', desc: 'Thumbs Up' },
+            { method: 'GET', path: '/reactions/fistbump', desc: 'Fist Bump' },
+            { method: 'GET', path: '/reactions/evil', desc: 'Evil Grin' }
+        ] },
+        { category: '🛠️ Tools (74)', endpoints: [
+            { method: 'POST', path: '/transcribe', desc: 'Voice Transcription' },
+            { method: 'POST', path: '/vision', desc: 'Image Description' },
+            { method: 'POST', path: '/tools/ocr', desc: 'OCR Text Extract' },
+            { method: 'POST', path: '/tools/removebg', desc: 'Remove Background' },
+            { method: 'POST', path: '/tools/remini', desc: 'Enhance Image' },
+            { method: 'GET', path: '/tools/translate', desc: 'Translate' },
+            { method: 'GET', path: '/tools/tts-google', desc: 'TTS Google' },
+            { method: 'GET', path: '/tools/trackip', desc: 'IP Tracker' },
+            { method: 'GET', path: '/tools/cekresi', desc: 'Cek Resi' },
+            { method: 'GET', path: '/tools/cuaca', desc: 'Weather' },
+            { method: 'GET', path: '/tools/gempa', desc: 'Earthquake Info' },
+            { method: 'GET', path: '/tools/jadwalsholat', desc: 'Prayer Times' },
+            { method: 'GET', path: '/tools/jadwalbola', desc: 'Football Schedule' },
+            { method: 'GET', path: '/tools/ssweb', desc: 'Screenshot Web' },
+            { method: 'GET', path: '/tools/webtozip', desc: 'Web to ZIP' },
+            { method: 'GET', path: '/tools/yt-transcribe', desc: 'YouTube Transcribe' },
+            { method: 'GET', path: '/tools/youtube-summarize', desc: 'YouTube Summarize' },
+            { method: 'GET', path: '/tools/whatsmusic', desc: 'What\'s Music' },
+            { method: 'GET', path: '/tools/usernamegen?mode=instans&theme=action', desc: 'Username (Action)' },
+            { method: 'GET', path: '/tools/usernamegen?mode=instans&theme=fantasy', desc: 'Username (Fantasy)' },
+            { method: 'GET', path: '/tools/usernamegen?mode=ai&theme=sci-fi', desc: 'Username AI (Sci-Fi)' },
+            { method: 'POST', path: '/tools/upscale', desc: 'Image Upscale' },
+            { method: 'POST', path: '/tools/enhancer', desc: 'Image Enhancer' },
+            { method: 'POST', path: '/tools/dewatermark', desc: 'Remove Watermark' },
+            { method: 'POST', path: '/tools/faceswap', desc: 'Face Swap' },
+            { method: 'POST', path: '/tools/colorize', desc: 'Colorize B&W' },
+            { method: 'POST', path: '/tools/unblur', desc: 'Unblur Image' },
+            { method: 'POST', path: '/tools/hdvideo', desc: 'HD Video Enhance' }
+        ] },
+        { category: '🎨 Ephoto Effects (25)', endpoints: [
+            { method: 'POST', path: '/ephoto/anime', desc: 'Anime Effect' },
+            { method: 'POST', path: '/ephoto/art', desc: 'Art Effect' },
+            { method: 'POST', path: '/ephoto/ghibli', desc: 'Ghibli Style' },
+            { method: 'POST', path: '/ephoto/comic', desc: 'Comic Effect' },
+            { method: 'POST', path: '/ephoto/cinematic', desc: 'Cinematic' },
+            { method: 'POST', path: '/ephoto/chibi', desc: 'Chibi Style' },
+            { method: 'POST', path: '/ephoto/nft', desc: 'NFT Style' },
+            { method: 'POST', path: '/ephoto/mafia', desc: 'Mafia Style' },
+            { method: 'POST', path: '/ephoto/mirror', desc: 'Mirror Effect' },
+            { method: 'POST', path: '/ephoto/monochrome', desc: 'Monochrome' },
+            { method: 'POST', path: '/ephoto/real', desc: 'Realistic' },
+            { method: 'POST', path: '/ephoto/street', desc: 'Street Style' },
+            { method: 'POST', path: '/ephoto/statue', desc: 'Statue Effect' }
+        ] },
+        { category: '✏️ TextPro Effects (13)', endpoints: [
+            { method: 'GET', path: '/textpro/avengers', desc: 'Avengers Logo' },
+            { method: 'GET', path: '/textpro/glitch', desc: 'Glitch Text' },
+            { method: 'GET', path: '/textpro/naruto', desc: 'Naruto Style' },
+            { method: 'GET', path: '/textpro/dragonball', desc: 'Dragon Ball' },
+            { method: 'GET', path: '/textpro/wolf-galaxy', desc: 'Wolf Galaxy' },
+            { method: 'GET', path: '/textpro/comic', desc: 'Comic Text' },
+            { method: 'GET', path: '/textpro/wetglass', desc: 'Wet Glass' },
+            { method: 'GET', path: '/textpro/painting', desc: 'Painting Style' },
+            { method: 'GET', path: '/textpro/pixel-glitch', desc: 'Pixel Glitch' },
+            { method: 'GET', path: '/textpro/marvel?background=logo-1', desc: 'Marvel Logo' }
+        ] },
+        { category: '🛠️ Maker Tools (14)', endpoints: [
+            { method: 'GET', path: '/maker/attp', desc: 'Animated Text PNG' },
+            { method: 'GET', path: '/maker/brat', desc: 'Brat Generator' },
+            { method: 'GET', path: '/maker/bratanime', desc: 'Brat Anime' },
+            { method: 'GET', path: '/maker/bratvid', desc: 'Brat Video' },
+            { method: 'GET', path: '/maker/brathd', desc: 'Brat HD' },
+            { method: 'GET', path: '/maker/ttp', desc: 'Text to Picture' },
+            { method: 'GET', path: '/maker/balogo', desc: 'BA Logo' },
+            { method: 'GET', path: '/maker/fakestory', desc: 'Fake Story' },
+            { method: 'GET', path: '/maker/fakethreads', desc: 'Fake Threads' },
+            { method: 'GET', path: '/maker/qc', desc: 'Quote Creator' },
+            { method: 'GET', path: '/maker/nulis', desc: 'Handwriting' },
+            { method: 'GET', path: '/maker/ustadz', desc: 'Ustadz Text' }
+        ] },
+        { category: '🎮 Canvas (9)', endpoints: [
+            { method: 'GET', path: '/canvas/youtube', desc: 'YouTube Banner' },
+            { method: 'GET', path: '/canvas/welcomeleave', desc: 'Welcome/Leave Card' },
+            { method: 'GET', path: '/canvas/rankcard', desc: 'Rank Card' },
+            { method: 'GET', path: '/canvas/quotly', desc: 'Quote Card' },
+            { method: 'GET', path: '/canvas/musiccard', desc: 'Music Card' },
+            { method: 'GET', path: '/canvas/gura', desc: 'Gura Style' }
+        ] },
+        { category: '🔍 Search (18)', endpoints: [
+            { method: 'GET', path: '/search/youtube', desc: 'YouTube' },
+            { method: 'GET', path: '/search/wikipedia', desc: 'Wikipedia' },
+            { method: 'GET', path: '/search/tiktok', desc: 'TikTok' },
+            { method: 'GET', path: '/search/pinterest', desc: 'Pinterest' },
+            { method: 'GET', path: '/search/spotify', desc: 'Spotify' },
+            { method: 'GET', path: '/search/lyrics', desc: 'Lyrics' },
+            { method: 'GET', path: '/search/googleimage', desc: 'Google Images' },
+            { method: 'GET', path: '/search/github', desc: 'GitHub' },
+            { method: 'GET', path: '/search/bingimage', desc: 'Bing Images' },
+            { method: 'GET', path: '/search/playstore', desc: 'Play Store' },
+            { method: 'GET', path: '/search/capcut', desc: 'CapCut Templates' }
+        ] },
+        { category: '📰 Berita/News (10)', endpoints: [
+            { method: 'GET', path: '/berita/antara', desc: 'Antara News' },
+            { method: 'GET', path: '/berita/cnn', desc: 'CNN' },
+            { method: 'GET', path: '/berita/cnbcindonesia', desc: 'CNBC Indonesia' },
+            { method: 'GET', path: '/berita/kompas', desc: 'Kompas' },
+            { method: 'GET', path: '/berita/sindonews', desc: 'Sindo News' },
+            { method: 'GET', path: '/berita/suara', desc: 'Suara' },
+            { method: 'GET', path: '/berita/merdeka', desc: 'Merdeka' },
+            { method: 'GET', path: '/berita/mlbb', desc: 'MLBB News' },
+            { method: 'GET', path: '/berita/jkt48', desc: 'JKT48 News' }
+        ] },
+        { category: '📥 Downloader (8)', endpoints: [
+            { method: 'GET', path: '/download/aio', desc: 'All-in-One' },
+            { method: 'GET', path: '/download/twitter', desc: 'Twitter' },
+            { method: 'GET', path: '/download/terabox', desc: 'Terabox' },
+            { method: 'GET', path: '/download/facebookv2', desc: 'Facebook' },
+            { method: 'GET', path: '/download/threads', desc: 'Threads' },
+            { method: 'GET', path: '/download/capcut', desc: 'CapCut' }
+        ] },
+        { category: '🎲 Random & Fun (4)', endpoints: [
+            { method: 'GET', path: '/random/anime?type=waifu', desc: 'Random Waifu' },
+            { method: 'GET', path: '/fun/livefunfact', desc: 'Live Fun Fact' },
+            { method: 'GET', path: '/fun/alay', desc: 'Alay Text' }
+        ] },
+        { category: '💰 Payment (2)', endpoints: [
+            { method: 'POST', path: '/payment/saweria/create', desc: 'Create Saweria' },
+            { method: 'GET', path: '/payment/saweria/check', desc: 'Check Saweria' }
+        ] },
+        { category: '🎬 Editor (2)', endpoints: [
+            { method: 'POST', path: '/editor/wanted', desc: 'Wanted Poster' },
+            { method: 'POST', path: '/editor/wasted', desc: 'Wasted Effect' }
+        ] }
+    ];
+    
+    12,175,55,0.15);border:1px solid #d4af37;padding:6px 20px;border-radius:40px;font-size:0.9rem;margin-bottom:1rem}
     .status-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(20,15,10,0.5);border:1px solid #d4af37;padding:8px 20px;border-radius:40px;font-size:0.95rem;margin-bottom:1rem}
     .pulse-dot{width:12px;height:12px;background:#10b981;border-radius:50%;box-shadow:0 0 15px #10b981;animation:pulse 2s infinite}
     @keyframes pulse{0%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(1.2)}100%{opacity:1;transform:scale(1)}}
@@ -285,8 +434,8 @@ export default {
   <div class="container">
     <div class="header">
       <h1>ஃ𖠃 APEX CRYSN⎔VA 🜲</h1>
-      <div class="powered-by">⚡ FULLY POWERED BY NEXRAY ⚡</div>
-      <div class="subtitle">255+ Endpoints · 24/7 Active · Zero Prexzy</div>
+      <div class="powered-by">⚡ FULLY UPDATED APEX ENDPOINT⚡</div>
+      <div class="subtitle">255+ Endpoints · 24/7 Active · to Levi my Hero ❤️</div>
       <div class="status-badge"><span class="pulse-dot"></span><span id="globalStatus">All Systems Operational</span></div>
     </div>
     <div class="token-panel">
