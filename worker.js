@@ -516,7 +516,7 @@ export default {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ஃ APEX CRYSN☉VA · 255+ Nexray Endpoints</title>
+  <title>ஃ APEX CRYSN☉VA · 255+ extra Endpoints</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:#0b0a0c;min-height:100vh;font-family:'Inter',system-ui,sans-serif;color:#e0d6b0;padding:2rem 1rem;position:relative;overflow-x:hidden}
