@@ -160,7 +160,7 @@ export default {
     // ==================== FRONTEND LANDING PAGE (PUBLIC) - COMPLETE WITH STATUS ====================
     if (path === '/' && method === 'GET') {
         const endpointsByCategory = [
-            { category: '🤖 AI Chat (52)', endpoints: [
+            { category: '🤖 AI Chat PRO 🜲', endpoints: [
                 { method: 'GET', path: '/ai/gemini', desc: 'Gemini AI' },
                 { method: 'GET', path: '/ai/bypass', desc: 'AI Bypass' },
                 { method: 'GET', path: '/ai/chatgpt', desc: 'ChatGPT' },
@@ -206,7 +206,7 @@ export default {
                 { method: 'GET', path: '/ai/dreamanalyze', desc: 'Dream Analyzer' },
                 { method: 'GET', path: '/ai/grammarcheck', desc: 'Grammar Check' }
             ] },
-            { category: '🎨 AI Image Generation (12)', endpoints: [
+            { category: '🎨 AI Image Generation ✐', endpoints: [
                 { method: 'POST', path: '/ai/deepimg', desc: 'DeepImg' },
                 { method: 'POST', path: '/ai/v1/flux', desc: 'Flux v1' },
                 { method: 'POST', path: '/ai/gptimage', desc: 'GPT Image' },
@@ -218,14 +218,14 @@ export default {
                 { method: 'POST', path: '/ai/writecreamimg?ratio=1:1', desc: 'WriteCream (1:1)' },
                 { method: 'POST', path: '/ai/writecreamimg?ratio=9:16', desc: 'WriteCream (9:16)' }
             ] },
-            { category: '🎵 AI Audio/Video (5)', endpoints: [
+            { category: '🎵 AI Audio/Video ♪⁠', endpoints: [
                 { method: 'GET', path: '/ai/gemini-tts', desc: 'Gemini TTS' },
                 { method: 'GET', path: '/ai/suno', desc: 'Suno AI Music' },
                 { method: 'GET', path: '/ai/veo2', desc: 'Veo 2 Video' },
                 { method: 'GET', path: '/ai/veo3', desc: 'Veo 3 Video' },
                 { method: 'GET', path: '/ai/deepsearch', desc: 'DeepSearch' }
             ] },
-            { category: '🎭 Reactions (39)', endpoints: [
+            { category: '🎭 Reactions 𓉤', endpoints: [
                 { method: 'GET', path: '/reactions/hug', desc: 'Hug GIF' },
                 { method: 'GET', path: '/reactions/kiss', desc: 'Kiss GIF' },
                 { method: 'GET', path: '/reactions/slap', desc: 'Slap GIF' },
@@ -265,11 +265,11 @@ export default {
                 { method: 'GET', path: '/reactions/nope', desc: 'Nope' },
                 { method: 'GET', path: '/reactions/evil', desc: 'Evil Grin' }
             ] },
-            { category: '🛠️ Core Services (6)', endpoints: [
+            { category: '🛠️ Core Services ⚉', endpoints: [
                 { method: 'POST', path: '/transcribe', desc: 'Voice Transcription (Groq)' },
                 { method: 'POST', path: '/vision', desc: 'Image Description (Groq)' }
             ] },
-            { category: '🛠️ Nexray Tools (30+)', endpoints: [
+            { category: '🛠️ Nexray Tools ⎔', endpoints: [
                 { method: 'POST', path: '/tools/ocr', desc: 'OCR Text Extract' },
                 { method: 'POST', path: '/tools/removebg', desc: 'Remove Background' },
                 { method: 'POST', path: '/tools/remini', desc: 'Enhance Image' },
@@ -302,7 +302,7 @@ export default {
                 { method: 'GET', path: '/tools/telegram-sticker', desc: 'Telegram Sticker' },
                 { method: 'GET', path: '/tools/vcc?type=american-express', desc: 'VCC Generator' }
             ] },
-            { category: '👤 Username Generator (8)', endpoints: [
+            { category: '👤 Username Generator ⓘ', endpoints: [
                 { method: 'GET', path: '/tools/usernamegen?mode=instans&theme=action', desc: 'Username (Action)' },
                 { method: 'GET', path: '/tools/usernamegen?mode=instans&theme=adventure', desc: 'Username (Adventure)' },
                 { method: 'GET', path: '/tools/usernamegen?mode=instans&theme=fantasy', desc: 'Username (Fantasy)' },
@@ -312,7 +312,7 @@ export default {
                 { method: 'GET', path: '/tools/usernamegen?mode=ai&theme=sci-fi', desc: 'Username AI (Sci-Fi)' },
                 { method: 'GET', path: '/tools/usernamegen?mode=ai&theme=horror', desc: 'Username AI (Horror)' }
             ] },
-            { category: '🖼️ Image Enhancement (10+)', endpoints: [
+            { category: '🖼️ Image Enhancement 𓊈𝑽꯭𝑰꯭𝑷ࠡࠡࠡࠡࠢ𓊉', endpoints: [
                 { method: 'POST', path: '/tools/upscale?resolusi=1', desc: 'Upscale 1x' },
                 { method: 'POST', path: '/tools/upscale?resolusi=4', desc: 'Upscale 4x' },
                 { method: 'POST', path: '/tools/upscale?resolusi=16', desc: 'Upscale 16x' },
@@ -333,7 +333,7 @@ export default {
                 { method: 'POST', path: '/tools/unblur', desc: 'Unblur Image' },
                 { method: 'POST', path: '/tools/blurface', desc: 'Blur Face' }
             ] },
-            { category: '🎬 Video Tools (6)', endpoints: [
+            { category: '🎬 Video Tools 𓄄', endpoints: [
                 { method: 'POST', path: '/tools/hdvideo', desc: 'HD Video Enhance' },
                 { method: 'POST', path: '/tools/v1/hdvideo?resolusi=hd', desc: 'HD Video (HD)' },
                 { method: 'POST', path: '/tools/v1/hdvideo?resolusi=full-hd', desc: 'HD Video (Full HD)' },
@@ -341,7 +341,7 @@ export default {
                 { method: 'POST', path: '/tools/v1/hdvideo?resolusi=4k', desc: 'HD Video (4K)' },
                 { method: 'POST', path: '/tools/dewatermark', desc: 'Remove Watermark' }
             ] },
-            { category: '🎨 Ephoto Effects (25)', endpoints: [
+            { category: '🎨 Ephoto Effects 彡', endpoints: [
                 { method: 'POST', path: '/ephoto/anime', desc: 'Anime Effect' },
                 { method: 'POST', path: '/ephoto/art', desc: 'Art Effect' },
                 { method: 'POST', path: '/ephoto/asci', desc: 'ASCII Effect' },
@@ -368,7 +368,7 @@ export default {
                 { method: 'POST', path: '/ephoto/statue', desc: 'Statue Effect' },
                 { method: 'POST', path: '/ephoto/street', desc: 'Street Style' }
             ] },
-            { category: '✏️ TextPro Effects (13)', endpoints: [
+            { category: '✏️ TextPro Effects ℘', endpoints: [
                 { method: 'GET', path: '/textpro/avengers', desc: 'Avengers Logo' },
                 { method: 'GET', path: '/textpro/cartoon-graffiti', desc: 'Cartoon Graffiti' },
                 { method: 'GET', path: '/textpro/comic', desc: 'Comic Text' },
@@ -383,7 +383,7 @@ export default {
                 { method: 'GET', path: '/textpro/mascot', desc: 'Mascot Logo' },
                 { method: 'GET', path: '/textpro/naruto', desc: 'Naruto Style' }
             ] },
-            { category: '🛠️ Maker Tools (14)', endpoints: [
+            { category: '🛠️ Maker Tools ㉨⁠', endpoints: [
                 { method: 'GET', path: '/maker/bratanime', desc: 'Brat Anime' },
                 { method: 'GET', path: '/maker/attp', desc: 'Animated Text PNG' },
                 { method: 'GET', path: '/maker/brat', desc: 'Brat Generator' },
@@ -399,7 +399,7 @@ export default {
                 { method: 'GET', path: '/maker/bratvid', desc: 'Brat Video' },
                 { method: 'GET', path: '/maker/brathd', desc: 'Brat HD' }
             ] },
-            { category: '🎮 Canvas (9)', endpoints: [
+            { category: '🎮 Canvas 𓀀', endpoints: [
                 { method: 'GET', path: '/canvas/youtube', desc: 'YouTube Banner' },
                 { method: 'GET', path: '/canvas/v2/welcomeleave', desc: 'Welcome/Leave v2' },
                 { method: 'GET', path: '/canvas/v1/welcomeleave', desc: 'Welcome/Leave v1' },
@@ -410,7 +410,7 @@ export default {
                 { method: 'GET', path: '/canvas/jmk', desc: 'JMK Card' },
                 { method: 'GET', path: '/canvas/gura', desc: 'Gura Style' }
             ] },
-            { category: '🔍 Search (18)', endpoints: [
+            { category: '🔍 Search ✧', endpoints: [
                 { method: 'GET', path: '/search/youtube', desc: 'YouTube Search' },
                 { method: 'GET', path: '/search/wikipedia', desc: 'Wikipedia' },
                 { method: 'GET', path: '/search/tiktoktrend', desc: 'TikTok Trends' },
@@ -430,7 +430,7 @@ export default {
                 { method: 'GET', path: '/search/bingimage', desc: 'Bing Images' },
                 { method: 'GET', path: '/search/capcut', desc: 'CapCut Templates' }
             ] },
-            { category: '📰 Berita/News (10)', endpoints: [
+            { category: '📰 Berita/News 𓅓', endpoints: [
                 { method: 'GET', path: '/berita/antara', desc: 'Antara News' },
                 { method: 'GET', path: '/berita/cnn', desc: 'CNN News' },
                 { method: 'GET', path: '/berita/ffnews', desc: 'FF News' },
@@ -442,7 +442,7 @@ export default {
                 { method: 'GET', path: '/berita/jkt48', desc: 'JKT48 News' },
                 { method: 'GET', path: '/berita/kompas', desc: 'Kompas News' }
             ] },
-            { category: '📥 Downloader (8)', endpoints: [
+            { category: '📥 Downloader ⎙', endpoints: [
                 { method: 'GET', path: '/download/aio', desc: 'All-in-One' },
                 { method: 'GET', path: '/download/capcut', desc: 'CapCut' },
                 { method: 'GET', path: '/download/twitter', desc: 'Twitter/X' },
@@ -452,7 +452,7 @@ export default {
                 { method: 'GET', path: '/download/saveweb2zip', desc: 'Save Web as ZIP' },
                 { method: 'GET', path: '/download/ytinfo', desc: 'YouTube Info' }
             ] },
-            { category: '🎲 Random & Fun (6)', endpoints: [
+            { category: '🎲 Random & Fun ∞', endpoints: [
                 { method: 'GET', path: '/random/anime?type=waifu', desc: 'Random Waifu' },
                 { method: 'GET', path: '/fun/livefunfact', desc: 'Live Fun Fact' },
                 { method: 'GET', path: '/fun/alay', desc: 'Alay Text Generator' },
@@ -460,24 +460,24 @@ export default {
                 { method: 'GET', path: '/tools/emojigif', desc: 'Emoji GIF' },
                 { method: 'GET', path: '/tools/emojimix', desc: 'Emoji Mix' }
             ] },
-            { category: '💰 Payment (2)', endpoints: [
+            { category: '💰 Payment ⌘', endpoints: [
                 { method: 'POST', path: '/payment/saweria/create', desc: 'Create Saweria' },
                 { method: 'GET', path: '/payment/saweria/check', desc: 'Check Saweria' }
             ] },
-            { category: '🎬 Editor (2)', endpoints: [
+            { category: '🎬 Editor 𓃼', endpoints: [
                 { method: 'POST', path: '/editor/wanted', desc: 'Wanted Poster' },
                 { method: 'POST', path: '/editor/wasted', desc: 'Wasted Effect (GTA)' }
             ] },
-            { category: '🎮 Game (2)', endpoints: [
+            { category: '🎮 Game —͟͟͞͞𖣘', endpoints: [
                 { method: 'GET', path: '/game/quizcategories', desc: 'Quiz Categories' },
                 { method: 'GET', path: '/game/quizguess', desc: 'Quiz Game' }
             ] },
-            { category: '🖥️ Screenshot (3)', endpoints: [
+            { category: '🖥️ Screenshot 𝌆', endpoints: [
                 { method: 'GET', path: '/ssweb/webss', desc: 'Web Screenshot' },
                 { method: 'GET', path: '/ssweb/apiFlash', desc: 'ApiFlash' },
                 { method: 'GET', path: '/ssweb/screenshotLayer', desc: 'Screenshot Layer' }
             ] },
-            { category: '🎵 Anime/Manga (9)', endpoints: [
+            { category: '🎵 Anime/Manga ( ͡❛ ₃ ͡❛)', endpoints: [
                 { method: 'GET', path: '/anime/anichin/detail', desc: 'Anime Detail' },
                 { method: 'GET', path: '/anime/anichin/search', desc: 'Anime Search' },
                 { method: 'GET', path: '/anime/anichin/stream', desc: 'Anime Stream' },
@@ -487,13 +487,13 @@ export default {
                 { method: 'GET', path: '/anime/komiku/chapter', desc: 'Manga Chapter' },
                 { method: 'GET', path: '/anime/komiku/popular', desc: 'Popular Manga' }
             ] },
-            { category: '🔧 Code Tools (4)', endpoints: [
+            { category: '🔧 Code Tools ❚◦✗', endpoints: [
                 { method: 'GET', path: '/tools/codeconvert?mode=esm', desc: 'Code Convert (ESM)' },
                 { method: 'GET', path: '/tools/codeconvert?mode=cjs', desc: 'Code Convert (CJS)' },
                 { method: 'GET', path: '/tools/compilejs', desc: 'Compile JS' },
                 { method: 'GET', path: '/tools/html2img', desc: 'HTML to Image' }
             ] },
-            { category: '🛡️ Security Tools (4)', endpoints: [
+            { category: '🛡️ Security Tools 𓄂ᬼ𓆃', endpoints: [
                 { method: 'GET', path: '/tools/bypass/cf?mode=waf-session', desc: 'Cloudflare Bypass' },
                 { method: 'POST', path: '/tools/faceswap', desc: 'Face Swap' },
                 { method: 'GET', path: '/tools/v1/dewatermark', desc: 'Dewatermark v1' },
@@ -506,7 +506,7 @@ export default {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ஃ APEX CRYSN☉VA · 255+ Nexray Endpoints</title>
+  <title>ஃ APEX CRYSN☉VA · 255+ 𓊈𝑽꯭𝑰꯭𝑷ࠡࠡࠡࠡࠢ𓊉 ENDPOINTS</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:#0b0a0c;min-height:100vh;font-family:'Inter',system-ui,sans-serif;color:#e0d6b0;padding:2rem 1rem;position:relative;overflow-x:hidden}
@@ -577,7 +577,7 @@ export default {
   <div class="container">
     <div class="header">
       <h1>ஃ𖠃 APEX CRYSN⎔VA 🜲</h1>
-      <div class="powered-by">⚡ 100% NEXRAY POWERED · ZERO PREXZY ⚡</div>
+      <div class="powered-by">⚡ 100% APEX POWERED · ZERO ERRORS ⚡</div>
       <div class="subtitle" id="subtitleText">255+ Endpoints · 24/7 Active · One Gateway to Rule Them All</div>
       <div class="status-badge"><span class="pulse-dot" id="globalPulse"></span><span id="globalStatus">🌐 Checking system status...</span></div>
     </div>
@@ -610,7 +610,7 @@ export default {
       <a href="https://youtube.com/@crysnovax" target="_blank" class="social-btn">▶️ YouTube</a>
       <a href="https://tiktok.com/@crysnovax" target="_blank" class="social-btn">🎵 TikTok</a>
     </div>
-    <div class="footer">ⓘ Apex CRYSN⚉VA AI · Secure Token Gateway · 100% Nexray · © 2026</div>
+    <div class="footer">ⓘ Apex CRYSN⚉VA AI · Secure Token Gateway · 100% Trusted✓ · © 2026</div>
   </div>
   <div class="back-to-top" id="backToTop">↑</div>
   
