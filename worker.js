@@ -646,43 +646,78 @@ export default {
         statusText.textContent = '⚠️ Partial Service Available';
       }
     }
+  
+
+   async function checkEndpoint(path, method, card) {
+  const statusDot = card.querySelector('.status-dot');
+  const statusText = card.querySelector('.status-text');
+  const responseTimeEl = card.querySelector('.response-time');
+  
+  const skipTestingPaths = ['/transcribe', '/vision'];
+  
+  if (skipTestingPaths.includes(path)) {
+    statusDot.className = 'status-dot checking';
+    statusText.textContent = 'checking'; statusText.className = 'status-text checking';
     
-    async function checkEndpoint(path, method, card) {
-      const statusDot = card.querySelector('.status-dot');
-      const statusText = card.querySelector('.status-text');
-      const responseTimeEl = card.querySelector('.response-time');
+    try {
+      const healthRes = await fetch('/health');
+      const health = await healthRes.json();
       
-      statusDot.className = 'status-dot checking';
-      statusText.textContent = 'checking'; statusText.className = 'status-text checking';
-      checkingCount++; updateGlobalStats();
-      
-      const startTime = Date.now();
-      try {
-        let url = location.origin + path;
-        if (currentToken) url += (path.includes('?') ? '&' : '?') + 'token=' + encodeURIComponent(currentToken);
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000);
-        const res = await fetch(url, { method, signal: controller.signal });
-        clearTimeout(timeoutId);
-        const responseTime = Date.now() - startTime;
-        
-        if (res.ok || res.status === 400 || res.status === 401 || res.status === 403) {
-          statusDot.className = 'status-dot online';
-          statusText.textContent = 'online'; statusText.className = 'status-text online';
-          responseTimeEl.textContent = responseTime + 'ms';
-          onlineCount++;
-        } else { throw new Error('Status: ' + res.status); }
-      } catch (err) {
+      if (health.groq) {
+        statusDot.className = 'status-dot online';
+        statusText.textContent = 'configured'; statusText.className = 'status-text online';
+        responseTimeEl.textContent = '✓';
+        onlineCount++;
+      } else {
         statusDot.className = 'status-dot offline';
-        statusText.textContent = 'offline'; statusText.className = 'status-text offline';
+        statusText.textContent = 'no api key'; statusText.className = 'status-text offline';
         responseTimeEl.textContent = '—';
         offlineCount++;
-      } finally {
-        checkingCount--;
-        updateGlobalStats();
       }
+    } catch {
+      statusDot.className = 'status-dot offline';
+      statusText.textContent = 'error'; statusText.className = 'status-text offline';
+      responseTimeEl.textContent = '—';
+      offlineCount++;
     }
     
+    updateGlobalStats();
+    return;
+  }
+  
+  statusDot.className = 'status-dot checking';
+  statusText.textContent = 'checking'; statusText.className = 'status-text checking';
+  checkingCount++; updateGlobalStats();
+  
+  const startTime = Date.now();
+  try {
+    let url = location.origin + path;
+    if (currentToken) url += (path.includes('?') ? '&' : '?') + 'token=' + encodeURIComponent(currentToken);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    const res = await fetch(url, { method, signal: controller.signal });
+    clearTimeout(timeoutId);
+    const responseTime = Date.now() - startTime;
+    
+    if (res.ok || res.status === 400 || res.status === 401 || res.status === 403) {
+      statusDot.className = 'status-dot online';
+      statusText.textContent = 'online'; statusText.className = 'status-text online';
+      responseTimeEl.textContent = responseTime + 'ms';
+      onlineCount++;
+    } else { throw new Error('Status: ' + res.status); }
+  } catch (err) {
+    statusDot.className = 'status-dot offline';
+    statusText.textContent = 'offline'; statusText.className = 'status-text offline';
+    responseTimeEl.textContent = '—';
+    offlineCount++;
+  } finally {
+    checkingCount--;
+    updateGlobalStats();
+  }
+}
+    
+    
+  
     async function checkAllEndpoints() {
       onlineCount = offlineCount = 0; updateGlobalStats();
       const cards = document.querySelectorAll('.card');
